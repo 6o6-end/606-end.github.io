@@ -1,11 +1,98 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>我的博客主页</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>308的世界 - 首页</title>
+    <style>
+        /* 全局基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "微软雅黑", sans-serif;
+        }
+        body {
+            background-color: #f5f5f5;
+        }
+
+        /* 顶部导航栏（3个页面通用，样式完全一致） */
+        .nav-bar {
+            display: flex;
+            width: 100%;
+            height: 80px;
+            background-color: #fff;
+            border-bottom: 2px solid #333;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+        .nav-item {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            font-weight: 500;
+            border-right: 1px solid #eee;
+        }
+        .nav-item:last-child {
+            border-right: none;
+        }
+        .nav-item a {
+            text-decoration: none;
+            color: #333;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+        /* 当前页面导航高亮 */
+        .nav-item a.active {
+            background-color: #333;
+            color: #fff;
+        }
+        .nav-item a:hover {
+            background-color: #f5f5f5;
+        }
+        .nav-item a.active:hover {
+            background-color: #333;
+            color: #fff;
+        }
+
+        /* 首页专属样式 */
+        .home-content {
+            width: 100%;
+            min-height: calc(100vh - 80px);
+            background: url("zhaopian/beijingtu1.jpg") no-repeat center center;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .welcome-text {
+            font-size: 48px;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <h1>欢迎来到我的博客</h1>
-    <p>导航页面：<a href=" ">点击进入导航</a ></p >
+    <!-- 顶部导航栏 -->
+    <div class="nav-bar">
+        <div class="nav-item"><a href=".daohang.html" class="active">首页</a></div>
+        <div class="nav-item"><a href="members.html">成员介绍</a></div>
+        <div class="nav-item"><a href="photos.html">宿舍合照</a></div>
+    </div>
+
+    <!-- 首页内容 -->
+    <div class="home-content">
+        <div class="welcome-text">欢迎来到308的世界</div>
+    </div>
 </body>
 </html>
