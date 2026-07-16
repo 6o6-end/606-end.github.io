@@ -1,0 +1,15 @@
+name: Deploy Pages
+on:
+  push:
+    branches: [ main ] # 仅main分支提交时自动执行
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 拉取仓库代码
+        uses: actions/checkout@v4
+      - name: 部署到GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./ # 代表读取仓库根目录所有网页文件
