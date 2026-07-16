@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>308的世界 - 宿舍合照</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "微软雅黑", sans-serif;
+        }
+        body {
+            background: url("images/beijingtu2.jpg") no-repeat center center fixed;
+            background-size: cover;
+            overflow-x: hidden;
+        }
+        .nav-bar {
+            display: flex;
+            width: 100%;
+            height: 80px;
+            background-color: #fff;
+            border-bottom: 2px solid #333;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+        .nav-item {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            font-weight: 500;
+            border-right: 1px solid #eee;
+        }
+        .nav-item:last-child { border-right: none; }
+        .nav-item a {
+            text-decoration: none;
+            color: #333;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+        .nav-item a.active {
+            background-color: #333;
+            color: #fff;
+        }
+        .nav-item a:hover { background-color: #f5f5f5; }
+        .nav-item a.active:hover {
+            background-color: #333;
+            color: #fff;
+        }
+
+        /* 半透明背景层（高度自动，不超长） */
+        .photo-content {
+            padding: 30px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            min-height: auto;
+            background-color: rgba(255, 255, 200, 0.55);
+            border-radius: 10px;
+        }
+
+        /* 上传按钮 */
+        .upload-box {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .upload-btn {
+            padding: 10px 20px;
+            background: #333;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        /* 图片网格 */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            width: 100%;
+        }
+        .photo-card {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1/1;
+            border: 3px solid #333;
+            overflow: hidden;
+            border-radius: 6px;
+        }
+        .photo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        /* 删除按钮 */
+        .delete-btn {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            background: rgba(255,0,0,0.8);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            font-size: 16px;
+            cursor: pointer;
+            z-index: 10;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="nav-bar">
+        <div class="nav-item"><a href="index.html">首页</a></div>
+        <div class="nav-item"><a href="members.html">成员介绍</a></div>
+        <div class="nav-item"><a href="photos.html" class="active">宿舍合照</a></div>
+    </div>
+
+    <div class="photo-content">
+        <div class="upload-box">
+            <button class="upload-btn" onclick="document.getElementById('fileInput').click()">➕ 添加照片</button>
+            <input type="file" id="fileInput" accept="image/*" multiple style="display:none;">
+        </div>
+
+        <div class="photo-grid" id="grid"></div>
+    </div>
+
+    <script>
+        const grid = document.getElementById('grid');
+        const fileInput = document.getElementById('fileInput');
+        let images = JSON.parse(localStorage.getItem('dormPhotos')) || [];
+
+        // 初始化渲染
+        renderImages();
+
+        // 选择图片
+        fileInput.onchange = (e) => {
+            for(let file of e.target.files){
+                const reader = new FileReader();
+                reader.onload = (ev) => {
+                    images.push(ev.target.result);
+                    localStorage.setItem('dormPhotos', JSON.stringify(images));
+                    renderImages();
+                };
+                reader.readAsDataURL(file);
+            }
+        };
+
+        // 渲染图片
+        function renderImages(){
+            grid.innerHTML = '';
+            images.forEach((src, index) => {
+                const card = document.createElement('div');
+                card.className = 'photo-card';
+                card.innerHTML = `
+                    <img src="${src}">
+                    <button class="delete-btn" onclick="deleteImg(${index})">✕</button>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // 删除图片
+        function deleteImg(index){
+            images.splice(index, 1);
+            localStorage.setItem('dormPhotos', JSON.stringify(images));
+            renderImages();
+        }
+    </script>
+</body>
+</html>
