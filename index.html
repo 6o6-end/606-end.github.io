@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <!-- 3秒自动跳转博客首页 -->
-    <meta http-equiv="refresh" content="3;url=./#/">
-    <title>欢迎页</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>赵月伊的个人博客</title>
 </head>
-<body style="text-align:center;margin-top:120px;font-size:22px;">
-    <p>即将进入我的个人博客</p >
-    <p>3秒自动跳转，<a href=" ">点击直接进入博客</a ></p >
+<body>
+  <div id="app"></div>
+  <script>
+    window.$docsify = {
+      loadSidebar: true,
+      name: '我的博客'
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
 </body>
 </html>
